@@ -1,0 +1,151 @@
+{
+  "name": "flowrelay",
+  "displayName": "Flow Relay",
+  "description": "AI Context Handoff for Teams – async context handoff platform",
+  "version": "1.0.30",
+  "publisher": "flowrelay",
+  "license": "AGPL-3.0-or-later",
+  "author": "Adriano Sorbello (atrisorb) <https://github.com/atrisorb>",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flow-relay/flowrelay-vscode-extension.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "flowrelay.setApiKey",
+        "title": "Flow Relay: Set API Key"
+      },
+      {
+        "command": "flowrelay.generateHandoff",
+        "title": "Flow Relay: Generate Handoff"
+      },
+      {
+        "command": "flowrelay.generateHandoffFromSource",
+        "title": "Flow Relay: Generate Handoff with Filters..."
+      },
+      {
+        "command": "flowrelay.selectProject",
+        "title": "Flow Relay: Select Project Context"
+      },
+      {
+        "command": "flowrelay.listHandoffs",
+        "title": "Flow Relay: Show Handoffs"
+      },
+      {
+        "command": "flowrelay.listIntegrations",
+        "title": "Flow Relay: Show Integrations"
+      },
+      {
+        "command": "flowrelay.listUntrackedResources",
+        "title": "Flow Relay: Show Untracked Resources"
+      },
+      {
+        "command": "flowrelay.showLastHandoff",
+        "title": "Flow Relay: Show Last Handoff"
+      },
+      {
+        "command": "flowrelay.discordListChannels",
+        "title": "Flow Relay: List Discord Channels"
+      },
+      {
+        "command": "flowrelay.discordSendMessage",
+        "title": "Flow Relay: Send Discord Message"
+      },
+      {
+        "command": "flowrelay.generateInsight",
+        "title": "Flow Relay: Generate Project Insight..."
+      },
+      {
+        "command": "flowrelay.listInsights",
+        "title": "Flow Relay: Show Insights"
+      },
+      {
+        "command": "flowrelay.listDigests",
+        "title": "Flow Relay: Show Digests"
+      },
+      {
+        "command": "flowrelay.askProject",
+        "title": "Flow Relay: Ask This Project"
+      },
+      {
+        "command": "flowrelay.generateReleaseNotes",
+        "title": "Flow Relay: Generate Release Notes"
+      },
+      {
+        "command": "flowrelay.listEvents",
+        "title": "Flow Relay: Show Events"
+      },
+      {
+        "command": "flowrelay.refreshSidebar",
+        "title": "Flow Relay: Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "flowrelay",
+          "title": "Flow Relay",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "flowrelay": [
+        {
+          "id": "flowrelay.workspace",
+          "name": "Workspace Context"
+        },
+        {
+          "id": "flowrelay.handoffs",
+          "name": "Handoffs"
+        },
+        {
+          "id": "flowrelay.integrations",
+          "name": "Integrations"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "flowrelay.refreshSidebar",
+          "when": "view =~ /^flowrelay\\./",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Flow Relay",
+      "properties": {
+        "flowrelay.apiBaseUrl": {
+          "type": "string",
+          "default": "https://www.flowrelay.it",
+          "description": "Base URL for the Flow Relay API"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --outdir=dist --external:vscode --format=cjs --platform=node",
+    "watch": "npm run build -- --watch",
+    "vscode:prepublish": "npm run build",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.0"
+  }
+}
