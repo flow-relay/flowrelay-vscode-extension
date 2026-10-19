@@ -1,0 +1,17 @@
+# Development and local-only artifacts
+.vscode/**
+.github/**
+node_modules/**
+src/**
+
+# Build and caches
+**/*.map
+**/*.tsbuildinfo
+tsconfig.json
+
+# Local package artifacts
+*.vsix
+
+# Docs not needed in the packaged extension
+package-lock.json
+.gitignore

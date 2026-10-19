@@ -1,0 +1,48 @@
+name: Publish VS Code Extension
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Publish Extension
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Publish to VS Code Marketplace
+        if: env.VSCE_PAT != ''
+        timeout-minutes: 15
+        run: |
+          for i in 1 2 3 4 5; do
+            echo "Attempt $i of 5..."
+            npx @vscode/vsce publish -p ${{ secrets.VSCE_PAT }} && break
+            echo "Attempt $i failed. Waiting $((i * 30))s before retry..."
+            sleep $((i * 30))
+          done
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to OpenVSX Registry
+        if: env.OVSX_PAT != ''
+        timeout-minutes: 10
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i of 3..."
+            npx ovsx publish -p ${{ secrets.OVSX_PAT }} && break
+            echo "Attempt $i failed. Waiting $((i * 20))s before retry..."
+            sleep $((i * 20))
+          done
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
