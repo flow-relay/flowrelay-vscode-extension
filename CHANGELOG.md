@@ -2,6 +2,14 @@
 
 All notable changes to the Flow Relay VS Code extension.
 
+## 1.11.0 – 2026-11-25
+
+### Added
+- `Flow Relay: Get Started`: a walkthrough in the editor's Welcome page, led by Pip. Six steps take you from connecting your account to choosing a project, writing the first handoff, asking the project, picking up your work and connecting your AI assistant. Each step has its own button and is ticked off when you complete it.
+
+### Changed
+- The Workspace, My Work, Handoffs and Integrations views show a welcome message with a **Set API key** button and a link to the walkthrough while no API key is set, instead of a single tree row.
+
 ## 1.10.0 – 2026-11-23
 
 ### Added

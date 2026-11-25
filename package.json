@@ -2,7 +2,7 @@
   "name": "flowrelay",
   "displayName": "Flow Relay",
   "description": "Context handoffs, project briefs and work tracking across your team's tools.",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "publisher": "flowrelay",
   "license": "AGPL-3.0-or-later",
   "author": "Adriano Sorbello (atrisorb) <https://github.com/atrisorb>",
@@ -23,6 +23,12 @@
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "flowrelay.getStarted",
+        "title": "Get Started",
+        "category": "Flow Relay",
+        "icon": "$(compass)"
+      },
       {
         "command": "flowrelay.setApiKey",
         "title": "Flow Relay: Set API Key"
@@ -265,6 +271,130 @@
       {
         "id": "flowrelay.mcp",
         "label": "Flow Relay"
+      }
+    ],
+    "viewsWelcome": [
+      {
+        "view": "flowrelay.workspace",
+        "contents": "Connect your Flow Relay account to see your workspaces and the active project here.\n[Set API key](command:flowrelay.setApiKey)\nCreate a key in [Settings > Connections](https://www.flowrelay.it/settings#connections) on flowrelay.it. New here? [Open the getting started guide](command:flowrelay.getStarted).",
+        "when": "!flowrelay.hasApiKey"
+      },
+      {
+        "view": "flowrelay.myWork",
+        "contents": "Connect your Flow Relay account to see the items assigned to you here.\n[Set API key](command:flowrelay.setApiKey)\nCreate a key in [Settings > Connections](https://www.flowrelay.it/settings#connections) on flowrelay.it. New here? [Open the getting started guide](command:flowrelay.getStarted).",
+        "when": "!flowrelay.hasApiKey"
+      },
+      {
+        "view": "flowrelay.handoffs",
+        "contents": "Connect your Flow Relay account to see the latest handoffs of your project here.\n[Set API key](command:flowrelay.setApiKey)\nCreate a key in [Settings > Connections](https://www.flowrelay.it/settings#connections) on flowrelay.it. New here? [Open the getting started guide](command:flowrelay.getStarted).",
+        "when": "!flowrelay.hasApiKey"
+      },
+      {
+        "view": "flowrelay.integrations",
+        "contents": "Connect your Flow Relay account to see the tools your project follows here.\n[Set API key](command:flowrelay.setApiKey)\nCreate a key in [Settings > Connections](https://www.flowrelay.it/settings#connections) on flowrelay.it. New here? [Open the getting started guide](command:flowrelay.getStarted).",
+        "when": "!flowrelay.hasApiKey"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "flowrelay.getStarted",
+        "title": "Get started with Flow Relay",
+        "description": "Connect your account, pick a project and bring handoffs, Ask and your work into the editor.",
+        "steps": [
+          {
+            "id": "connect",
+            "title": "Connect your account",
+            "description": "Flow Relay reads the tools your team already uses and writes handoffs you can cite. Create an API key in Settings > Connections on flowrelay.it, then paste it here. It stays in the editor secret storage.\n[Set API key](command:flowrelay.setApiKey)",
+            "media": {
+              "image": {
+                "light": "media/pebble-bot.svg",
+                "dark": "media/pebble-bot-dark-theme.svg"
+              },
+              "altText": "Pip, the Flow Relay drone, waving hello"
+            },
+            "completionEvents": [
+              "onContext:flowrelay.hasApiKey"
+            ]
+          },
+          {
+            "id": "project",
+            "title": "Choose a project",
+            "description": "Every command works on the active project. The status bar shows which one it is.\n[Choose a project](command:flowrelay.selectProject)",
+            "media": {
+              "image": {
+                "light": "media/pebble-bot.svg",
+                "dark": "media/pebble-bot-dark-theme.svg"
+              },
+              "altText": "Pip pointing at the project list"
+            },
+            "completionEvents": [
+              "onContext:flowrelay.hasProject"
+            ]
+          },
+          {
+            "id": "handoff",
+            "title": "Write your first handoff",
+            "description": "A handoff is a cited summary of what changed: decisions, blockers and next steps. It opens next to your code.\n[Generate a handoff](command:flowrelay.generateHandoff)",
+            "media": {
+              "image": {
+                "light": "media/pebble-bot.svg",
+                "dark": "media/pebble-bot-dark-theme.svg"
+              },
+              "altText": "Pip carrying the relay baton"
+            },
+            "completionEvents": [
+              "onCommand:flowrelay.generateHandoff",
+              "onCommand:flowrelay.generateHandoffFromSource"
+            ]
+          },
+          {
+            "id": "ask",
+            "title": "Ask the project",
+            "description": "Ask a question in plain words. Every answer cites the events it comes from. Type @flowrelay in the chat, or open the Ask panel.\n[Open the Ask panel](command:flowrelay.openAskPanel)",
+            "media": {
+              "image": {
+                "light": "media/pebble-bot.svg",
+                "dark": "media/pebble-bot-dark-theme.svg"
+              },
+              "altText": "Pip listening to a question"
+            },
+            "completionEvents": [
+              "onCommand:flowrelay.askProject",
+              "onCommand:flowrelay.openAskPanel"
+            ]
+          },
+          {
+            "id": "work",
+            "title": "Pick up your work",
+            "description": "My work lists the items assigned to you across projects. Start one from the editor and Flow Relay links your commits to it.\n[Show my work](command:flowrelay.listMyWork)",
+            "media": {
+              "image": {
+                "light": "media/pebble-bot.svg",
+                "dark": "media/pebble-bot-dark-theme.svg"
+              },
+              "altText": "Pip holding a work item"
+            },
+            "completionEvents": [
+              "onCommand:flowrelay.listMyWork",
+              "onView:flowrelay.myWork"
+            ]
+          },
+          {
+            "id": "assistant",
+            "title": "Connect your AI assistant",
+            "description": "Offer the hosted Flow Relay MCP server to the assistants in this editor, so they can read handoffs and update the plan too.\n[Enable the MCP server](command:flowrelay.enableMcpServer)",
+            "media": {
+              "image": {
+                "light": "media/pebble-bot.svg",
+                "dark": "media/pebble-bot-dark-theme.svg"
+              },
+              "altText": "Pip handing the baton to an assistant"
+            },
+            "completionEvents": [
+              "onCommand:flowrelay.enableMcpServer"
+            ]
+          }
+        ]
       }
     ]
   },

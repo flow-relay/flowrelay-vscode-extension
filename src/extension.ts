@@ -141,6 +141,7 @@ export function activate(context: vscode.ExtensionContext) {
       activeProjectId: projectId,
     };
     await context.globalState.update(ACTIVE_PROJECT_KEY, projectId);
+    void vscode.commands.executeCommand('setContext', 'flowrelay.hasProject', !!projectId);
   };
 
   // ── Init API client ──────────────────────────────────────────────
@@ -152,11 +153,13 @@ export function activate(context: vscode.ExtensionContext) {
     } else {
       api = null;
     }
+    void vscode.commands.executeCommand('setContext', 'flowrelay.hasApiKey', !!api);
   };
 
   const refreshWorkspaceContext = async () => {
     if (!api) {
       snapshot = { tenant: null, activeProjectId: null };
+      void vscode.commands.executeCommand('setContext', 'flowrelay.hasProject', false);
       return;
     }
 
@@ -169,6 +172,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     snapshot = { tenant, activeProjectId };
+    void vscode.commands.executeCommand('setContext', 'flowrelay.hasProject', !!activeProjectId);
   };
 
   // ── Sidebar providers ────────────────────────────────────────────
@@ -325,6 +329,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Set API Key
   context.subscriptions.push(
+    vscode.commands.registerCommand('flowrelay.getStarted', () =>
+      vscode.commands.executeCommand('workbench.action.openWalkthrough', `${context.extension.id}#flowrelay.getStarted`, false),
+    ),
     vscode.commands.registerCommand('flowrelay.setApiKey', async () => {
       const key = await vscode.window.showInputBox({
         prompt: 'Enter your Flow Relay API key',

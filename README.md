@@ -3,10 +3,11 @@
 Flow Relay for VS Code brings async handoff generation, project context and multi-tenant AI insights directly into your editor (VS Code, Cursor and the Antigravity IDE). The Antigravity App and CLI connect through the Flow Relay MCP server instead.
 
 - Extension id: flowrelay.flowrelay
-- Current version: 1.10.0
+- Current version: 1.11.0
 
 ## Key Features
 
+- **Getting started walkthrough (`Flow Relay: Get Started`)**: a guided walkthrough in the editor's Welcome page, led by Pip, the Flow Relay drone. Six steps – connect your account, choose a project, write the first handoff, ask the project, pick up your work and connect your AI assistant – each with its own button, ticked off as you complete it. The sidebar views show a connect button with the same guide while no API key is set.
 - **My Work sidebar panel**: the work items assigned to you across every project, with status, finish date and project. Start an item from the inline play button (creates a branch named after the item, such as `fr-12-refund-flow`, and moves the item to In progress) or change its status from the context menu. Commits and pull requests on that branch link to the item automatically.
 - **Current branch in the status bar**: when the checked-out branch names an item key (`fr-12-refund-flow`, `feature/FR-12`), the status bar shows that item and its status; click it to change the status or open the item in Flow Relay. The extension starts with the editor so the status bar entry is there without opening the sidebar first.
 - **Workspace sidebar panel**: the workspaces your key reaches (your personal projects and each organization), the selected project and your role in it.
@@ -61,6 +62,8 @@ Install from one of these channels:
 
 ## Setup
 
+The quickest path is the walkthrough: run `Flow Relay: Get Started`, or click **Set API key** in any Flow Relay sidebar view. By hand:
+
 1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`).
 2. Run: `Flow Relay: Set API Key`
 3. Enter your API key (format: `fr_...`). It is stored securely in VS Code SecretStorage.
@@ -74,6 +77,7 @@ You can override it in settings with `flowrelay.apiBaseUrl`.
 
 ## Commands
 
+- `Flow Relay: Get Started`
 - `Flow Relay: Set API Key`
 - `Flow Relay: Choose Project`
 - `Flow Relay: Generate Handoff`

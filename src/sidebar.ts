@@ -63,15 +63,7 @@ export class WorkspaceProvider implements vscode.TreeDataProvider<vscode.TreeIte
   async getChildren(): Promise<vscode.TreeItem[]> {
     const api = this.getApi();
     if (!api) {
-      return [makeInfoItem(
-        'Set API key to load workspace context',
-        'key',
-        undefined,
-        {
-          command: 'flowrelay.setApiKey',
-          title: 'Set API Key',
-        },
-      )];
+      return [];
     }
 
     const snapshot = this.getWorkspaceSnapshot();
@@ -166,15 +158,7 @@ export class HandoffsProvider implements vscode.TreeDataProvider<vscode.TreeItem
   async getChildren(): Promise<vscode.TreeItem[]> {
     const api = this.getApi();
     if (!api) {
-      return [makeInfoItem(
-        'Set API key to load handoffs',
-        'key',
-        undefined,
-        {
-          command: 'flowrelay.setApiKey',
-          title: 'Set API Key',
-        },
-      )];
+      return [];
     }
 
     const snapshot = this.getWorkspaceSnapshot();
@@ -267,15 +251,7 @@ export class IntegrationsProvider implements vscode.TreeDataProvider<vscode.Tree
   async getChildren(): Promise<vscode.TreeItem[]> {
     const api = this.getApi();
     if (!api) {
-      return [makeInfoItem(
-        'Set API key to load integrations',
-        'key',
-        undefined,
-        {
-          command: 'flowrelay.setApiKey',
-          title: 'Set API Key',
-        },
-      )];
+      return [];
     }
 
     const snapshot = this.getWorkspaceSnapshot();
@@ -406,15 +382,7 @@ export class MyWorkProvider implements vscode.TreeDataProvider<vscode.TreeItem> 
   async getChildren(): Promise<vscode.TreeItem[]> {
     const api = this.getApi();
     if (!api) {
-      return [makeInfoItem(
-        'Set API key to load your work',
-        'key',
-        undefined,
-        {
-          command: 'flowrelay.setApiKey',
-          title: 'Set API Key',
-        },
-      )];
+      return [];
     }
     try {
       const items = await api.listMyWork();
